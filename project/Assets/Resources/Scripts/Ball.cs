@@ -11,10 +11,10 @@ public class Ball : MonoBehaviour {
 // 変数
 //========================================================================================
 	//--public----------------------
-	public float m_maxPower = 1.0f;
+
 	
 	//--pirvate---------------------
-	private Camera m_mainCamera;
+
 	
 //========================================================================================
 // 関数
@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-		m_mainCamera = Camera.main;
+
 	}
 	
 	//--------------------------------------------------------
@@ -32,20 +32,14 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
-		// タッチ時の処理
-		if(Input.GetMouseButtonDown(0))
-		{
-			Vector2 mousePos = Input.mousePosition;
-			Vector3 worldMousePos = m_mainCamera.ScreenToWorldPoint(
-				new Vector3(mousePos.x, mousePos.y, 0.0f));
 
-			float dist = Vector3.Distance(worldMousePos, gameObject.transform.position);
+	}
 
-			Vector3 addForceVelocity = gameObject.transform.position - worldMousePos;
-			addForceVelocity.Normalize();
-			addForceVelocity *= m_maxPower;
-
-
-		}
+	//--------------------------------------------------------
+	// 移動ベクトルを変更
+	//--------------------------------------------------------
+	public void ChangeVelocity(Vector3 vel)
+	{
+		this.rigidbody.velocity = vel;
 	}
 }
