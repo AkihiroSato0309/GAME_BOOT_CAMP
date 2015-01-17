@@ -48,9 +48,10 @@ public class Block : MonoBehaviour {
     //--------------------------------------------------------
     // ボール衝突処理
     //--------------------------------------------------------
-	void OnCollisionEnter(Collision col)
+	void OnCollisionEnter2D(Collision2D col)
     {
         hitCount--;     //ヒットカウントを減らす
+		Debug.Log ("ahe");
     }
 
 }
