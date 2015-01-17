@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ScriptTemplate : MonoBehaviour {
+public class Template : MonoBehaviour {
 //========================================================================================
 // 定数
 //========================================================================================
