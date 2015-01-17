@@ -20,7 +20,7 @@ public class MenuBall : MonoBehaviour {
 
 	
 	//--pirvate---------------------
-	bool isMovingRight;
+	bool isMovingLeft = true;
 	
 	
 	//========================================================================================
@@ -46,10 +46,18 @@ public class MenuBall : MonoBehaviour {
 	{
 		if (Random.Range (0, 60) == 0)
 		{
-			float force = Random.Range (-10.0f, 10.0f);
-			if( Mathf.Abs (force) < 3.0f ) force += 3.0f;
+			float force = Random.Range (5.0f, 10.0f);
+			if (isMovingLeft) force *= -1;
 			gameObject.rigidbody2D.AddForce( new Vector2(force, 0.0f) );
 			gameObject.rigidbody2D.angularVelocity = force * 10;
 		}
+	}
+
+	//--------------------------------------------------------
+	// 更新処理
+	//--------------------------------------------------------
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		isMovingLeft = !isMovingLeft;
 	}
 }
