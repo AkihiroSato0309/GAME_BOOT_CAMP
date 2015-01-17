@@ -25,8 +25,8 @@ public class KillLine : MonoBehaviour {
 	//========================================================================================
 	// プロパティ。イベント
 	//========================================================================================
-	//public delegate void CollisionWithBallEventHandler();
-	//public event CollisionWithBallEventHandler OnCollidesWithBall;
+	//public delegate void KillingBallEventHandler();
+	//public event KillingBallEventHandler OnKilledBall;
 
 
 	//========================================================================================
@@ -55,28 +55,61 @@ public class KillLine : MonoBehaviour {
 	{
 		Debug.Log("KillLineが" + other.gameObject.tag + "と衝突");
 
-		// 壁だったら何もしない
+		// 壁だったら, 何もしない
 		if (other.gameObject.tag == "Wall") return;
 		
-		// ボールだったら
+		// ボールだったら, ボールを非表示にする
 		if (other.gameObject.tag == "Ball")
 		{
-			// ボールの表示を一旦無効にする
-			other.gameObject.renderer.enabled = false;
-
-			// ボール破壊時のエフェクトを表示
-			GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/DethParticle" ) ) as GameObject;
-			effect.transform.position = this.transform.position + new Vector3( 0, 2, 0 );
-
-			// イベントハンドラを呼び出す
-			//if (OnCollidesWithBall != null) this.OnCollidesWithBall();
+			KillBall( other.gameObject ); 
 		}
-		// それ以外のオブジェクトなら
+		// それ以外のオブジェクトなら, オブジェクトを削除
 		else
 		{
-			// 触れたオブジェクトを削除
 			Destroy(other.gameObject);
 			Debug.Log("削除対象オブジェクトであったため、KillLineはオブジェクトを削除");
 		}
+	}
+
+	//--------------------------------------------------------
+	// ボール削除処理
+	//--------------------------------------------------------
+	private void KillBall( GameObject ball )
+	{
+		// ボールの表示を一旦無効にする
+		ball.renderer.enabled = false;
+		
+		// ボール破壊時のエフェクトを表示
+		GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/DethParticle" ) ) as GameObject;
+		effect.transform.position = this.transform.position + new Vector3( 0, 2, 0 );
+
+		/*
+		// ボール破壊時エフェクトの終了時に, ボールリスポーン処理が呼ばれるように設定
+		effect.OnEnded += delegate()
+		{ 
+			RespwanBall( other.gameObject );
+		}
+		*/
+		
+		// イベントハンドラを呼び出す
+		//if (OnKilledBall != null) this.OnKilledBall();
+	}
+	
+	//--------------------------------------------------------
+	// ボールリスポーン処理
+	//--------------------------------------------------------
+	private void RespwanBall( GameObject ball )
+	{
+		/*
+		// リスポーンエフェクト再生
+		var effect = Instantiate( Resources.Load( @"Prefabs/Particles/RespawnParticle" ) ) as RespawnParticle;
+
+		// リスポーンエフェクト終了時に, ボールを可視化, カメラと同じ場所に座標をセットするように設定
+		effect.OnEnded += delegate()
+		{
+			ball.renderer.enabled = true;
+			ball.transform.position = this.transform.parent.transform.position;
+		}
+		*/
 	}
 }
