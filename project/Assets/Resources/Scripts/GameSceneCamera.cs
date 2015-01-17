@@ -63,7 +63,7 @@ public class GameSceneCamera : MonoBehaviour {
 			this.transform.position = position;
 			
 			// イベントハンドラの呼び出し
-			if (OnMoved != null) this.OnMoved(position.y);
+			if (OnMoved != null) this.OnMoved (position.y);
 		}
 	}
 }

@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
+		StartCoroutine("Momiage");
+
+		/*
 		// ステージ生成機作成
 		GameObject stageGenerator = Instantiate (Resources.Load (@"Prefabs/Objects/StageGenerator")) as GameObject;
 
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour {
 		// カメラスクリプトにイベントハンドラ設定
 		cameraScript.OnMoved += meterUIScript.SetMeter;
 		cameraScript.OnMoved += stageGeneratorScript.SetScore;
+		*/
 	}
 	
 	//--------------------------------------------------------
@@ -84,5 +88,30 @@ public class GameManager : MonoBehaviour {
 		
 		// リザルトシーンへ遷移
 		Application.LoadLevel("Result");
+	}
+
+	//--------------------------------------------------------
+	// リザルトシーン遷移処理
+	//--------------------------------------------------------
+	public IEnumerator Momiage()
+	{
+		// 3秒待機
+		yield return null;
+		
+		// ステージ生成機作成
+		GameObject stageGenerator = Instantiate (Resources.Load (@"Prefabs/Objects/StageGenerator")) as GameObject;
+		
+		// カメラスクリプト取得
+		GameSceneCamera cameraScript = camera.GetComponent<GameSceneCamera> ();
+		
+		// 各UIスクリプト取得
+		Meter meterUIScript = canvas.transform.FindChild("Meter").GetComponent<Meter> ();
+		
+		// ステージ生成機スクリプト取得
+		StageGenerator stageGeneratorScript = stageGenerator.GetComponent<StageGenerator> ();
+		
+		// カメラスクリプトにイベントハンドラ設定
+		cameraScript.OnMoved += meterUIScript.SetMeter;
+		cameraScript.OnMoved += stageGeneratorScript.SetScore;
 	}
 }
