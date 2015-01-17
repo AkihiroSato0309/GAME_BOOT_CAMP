@@ -49,6 +49,7 @@ public class ShockWaver : MonoBehaviour {
 
 			AddPower(worldMousePos);
 			EffectCreate(worldMousePos);
+
 		}
 	}
 
