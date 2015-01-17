@@ -1,13 +1,13 @@
 ﻿//========================================================================================
 //
-// 製作者 : 大榮圭祐
+// 製作者 :　
 //
 //========================================================================================
 
 using UnityEngine;
 using System.Collections;
 
-public class KillLine : MonoBehaviour {
+public class GameSceneCamera : MonoBehaviour {
 	//========================================================================================
 	// 定数
 	//========================================================================================
@@ -17,18 +17,19 @@ public class KillLine : MonoBehaviour {
 	// 変数
 	//========================================================================================
 	//--public----------------------
-	
+	public GameObject ball;
+
 	
 	//--pirvate---------------------
 	
-
+	
 	//========================================================================================
 	// プロパティ。イベント
 	//========================================================================================
-	public delegate void CollisionWithBallEventHandler();
-	public event CollisionWithBallEventHandler OnCollidesWithBall;
+	public delegate void CameraMoveEventHandler( float cameraPosY );
+	public event CameraMoveEventHandler OnMoved;						// カメラ上昇イベント
 
-
+	
 	//========================================================================================
 	// 関数
 	//========================================================================================
@@ -45,33 +46,24 @@ public class KillLine : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
+		// ボールが存在していなければ何もしない
+		if (ball == null) return;
 		
-	}
-
-	//--------------------------------------------------------
-	// 衝突時処理
-	//--------------------------------------------------------
-	private void OnTriggerEnter(Collider other)
-	{
-		Debug.Log("KillLineが" + other.gameObject.tag + "と衝突");
-
-		// 壁だったら何もしない
-		if (other.gameObject.tag == "Wall") return;
+		// ボールとカメラ間のy方向のギャップ（距離）を取得
+		// OFFSETは, スクロール開始の基準距離を変更できる. 0で画面中心
+		const float OFFSET = 3.0f;
+		float distance = this.ball.transform.position.y - (this.transform.position.y + OFFSET);
 		
-		// ボールだったら
-		if (other.gameObject.tag == "Ball")
+		// ボールがカメラより上にあれば（ボールが画面中央より上へ跳んでいたら）
+		if (distance > 0.0f)
 		{
-			// ボール破壊時のエフェクトを表示
-			//var camera = this.gameObject.transform.parent;
-			//var effect = camera.FindChild("GameOverEffect");
-			//effect.particleSystem.Play();
+			// カメラのy座標を, ボールのy座標と一致させる（ボールに追従する）
+			Vector3 position = this.transform.position;
+			position.y += distance;
+			this.transform.position = position;
 			
-			// イベントハンドラを呼び出す
-			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
+			// イベントハンドラの呼び出し
+			if (OnMoved != null) this.OnMoved(position.y);
 		}
-		
-		// 触れたオブジェクトを削除
-		Destroy(other.gameObject);
-		Debug.Log("削除対象オブジェクトであったため、KillLineはオブジェクトを削除");
 	}
 }
