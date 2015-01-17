@@ -36,7 +36,7 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-		m_block = Resources.Load ("") as GameObject;
+		m_block = Resources.Load ("Prefabs/Objects/Block") as GameObject;
 		executeUpdate = UpdateNormal;
 		m_generateCounter = (int)(m_scoreHolder / m_appearRenge);
 	}
@@ -84,7 +84,7 @@ public class BlockGenerator : MonoBehaviour {
 	}
 
 	//--------------------------------------------------------
-	// ブロックを生成する
+	// モード変更
 	//--------------------------------------------------------
 	public void ChangeMode()
 	{
