@@ -58,7 +58,6 @@ public class ShockWaver : MonoBehaviour {
 	//--------------------------------------------------------
 	void AddPower(Vector3 worldPos)
 	{
-		
 		Vector2 ballPos2D = SatouUtility.Vec3toVec2(m_ball.transform.position);
 		Vector2 addForceVelocity = m_ball.transform.position - worldPos;
 		addForceVelocity.Normalize();
@@ -72,7 +71,7 @@ public class ShockWaver : MonoBehaviour {
 
 		float addPower = m_maxPower * cutRatio;
 		addForceVelocity *= addPower;
-		m_ball.GetComponent<Ball>().ChangeVelocity(addForceVelocity);			
+		m_ball.GetComponent<Ball>().AddForce(addForceVelocity);			
 	}
 
 	//--------------------------------------------------------

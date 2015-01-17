@@ -15,7 +15,7 @@ public class Block : MonoBehaviour {
     //--public----------------------
     public Material[] mat = new Material[3];    //ブロックのマテリアル
     //--private----------------------
-    private int hitCount;                       //ブロック衝突回数カウンター
+    public int hitCount;                       //ブロック衝突回数カウンター
 
 //========================================================================================
 // 関数
@@ -23,8 +23,7 @@ public class Block : MonoBehaviour {
     //--------------------------------------------------------
     // 初期化処理
     //--------------------------------------------------------
-	void Start () {
-        hitCount = 3;                   //ヒットカウント初期化
+	void Start () {                   //ヒットカウント初期化
         renderer.material = mat[2];     //ブロックに最初のマテリアル指定
 
 	}
