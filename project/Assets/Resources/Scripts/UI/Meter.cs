@@ -19,7 +19,7 @@ public class Meter : MonoBehaviour {
 		return meter;
 	}
 
-	public void SetMeter (int meter) {
-		this.meter = meter;
+	public void SetMeter (float meter) {
+		this.meter = (int)meter;
 	}
 }
