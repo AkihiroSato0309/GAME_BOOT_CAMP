@@ -72,7 +72,7 @@ public class ShockWaver : MonoBehaviour {
 
 		float addPower = m_maxPower * cutRatio;
 		addForceVelocity *= addPower;
-		m_ball.GetComponent<Ball>().ChangeVelocity(addForceVelocity);			
+		m_ball.GetComponent<Ball>().AddForce(addForceVelocity);			
 	}
 
 	//--------------------------------------------------------
