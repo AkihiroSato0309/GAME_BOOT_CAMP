@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-
+		this.collider2D.isTrigger = true;
 	}
 	
 	//--------------------------------------------------------
@@ -33,6 +33,18 @@ public class Ball : MonoBehaviour {
 	void Update () 
 	{
 
+	}
+
+	//--------------------------------------------------------
+	// 移動ベクトルを変更
+	//--------------------------------------------------------
+	public void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Coin")
+		{
+			Physics2D.IgnoreCollision (this.rigidbody2D.collider2D, other.rigidbody.collider2D);
+			Destroy(other.gameObject);
+		}
 	}
 
 	//--------------------------------------------------------

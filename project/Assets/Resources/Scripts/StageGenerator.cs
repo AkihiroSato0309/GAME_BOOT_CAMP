@@ -76,7 +76,9 @@ public class StageGenerator : MonoBehaviour {
 			}
 
 			m_appearRenge -= (m_appearRenge > 2.0f)? m_appearFrequency : 0.0f;
+			m_generateCounter = count;
 		}
+		m_scoreHolder = Camera.main.transform.position.y;
 	}
 
 
