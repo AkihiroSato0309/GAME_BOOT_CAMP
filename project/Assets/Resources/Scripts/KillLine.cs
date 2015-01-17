@@ -25,8 +25,8 @@ public class KillLine : MonoBehaviour {
 	//========================================================================================
 	// プロパティ。イベント
 	//========================================================================================
-	public delegate void CollisionWithBallEventHandler();
-	public event CollisionWithBallEventHandler OnCollidesWithBall;
+	//public delegate void CollisionWithBallEventHandler();
+	//public event CollisionWithBallEventHandler OnCollidesWithBall;
 
 
 	//========================================================================================
@@ -61,17 +61,22 @@ public class KillLine : MonoBehaviour {
 		// ボールだったら
 		if (other.gameObject.tag == "Ball")
 		{
+			// ボールの表示を一旦無効にする
+			other.gameObject.renderer.enabled = false;
+
 			// ボール破壊時のエフェクトを表示
 			GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/DethParticle" ) ) as GameObject;
-			effect.transform.parent = this.transform;
-			effect.transform.position = new Vector2( -0.0f, -8.0f );
-			
+			effect.transform.position = this.transform.position + new Vector3( 0, 2, 0 );
+
 			// イベントハンドラを呼び出す
-			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
+			//if (OnCollidesWithBall != null) this.OnCollidesWithBall();
 		}
-		
-		// 触れたオブジェクトを削除
-		Destroy(other.gameObject);
-		Debug.Log("削除対象オブジェクトであったため、KillLineはオブジェクトを削除");
+		// それ以外のオブジェクトなら
+		else
+		{
+			// 触れたオブジェクトを削除
+			Destroy(other.gameObject);
+			Debug.Log("削除対象オブジェクトであったため、KillLineはオブジェクトを削除");
+		}
 	}
 }
