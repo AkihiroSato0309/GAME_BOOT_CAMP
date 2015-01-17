@@ -11,9 +11,9 @@ public class BlockGenerator : MonoBehaviour {
 // 変数
 //========================================================================================
 	//--public----------------------
-	public float m_appearRenge;				// ブロック出現距離
-	public float m_appearAxel;				// 出現頻度上昇値
-	public float m_feverRenge;				// フィーバー時の出現距離					
+	public float m_appearRenge = 10.0f;				// ブロック出現距離
+	public float m_appearFrequency = 0.2f;			// 出現頻度上昇値
+	public float m_feverRenge = 2.0f;				// フィーバー時の出現距離					
 
 	//--pirvate---------------------
 	private GameObject m_block;
@@ -58,6 +58,7 @@ public class BlockGenerator : MonoBehaviour {
 		int count = (int)(m_scoreHolder / m_appearRenge);
 		if(count > m_generateCounter)
 		{
+			m_appearRenge -= (m_appearRenge > 2.0f)? m_appearFrequency : 0.0f;
 			BlockGenerate();
 		}
 	}

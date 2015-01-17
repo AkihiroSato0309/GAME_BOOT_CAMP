@@ -58,7 +58,6 @@ public class ShockWaver : MonoBehaviour {
 	//--------------------------------------------------------
 	void AddPower(Vector3 worldPos)
 	{
-		
 		Vector2 ballPos2D = SatouUtility.Vec3toVec2(m_ball.transform.position);
 		Vector2 addForceVelocity = m_ball.transform.position - worldPos;
 		addForceVelocity.Normalize();
