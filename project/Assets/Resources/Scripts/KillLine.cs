@@ -51,7 +51,7 @@ public class KillLine : MonoBehaviour {
 	//--------------------------------------------------------
 	// 衝突時処理
 	//--------------------------------------------------------
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		Debug.Log("KillLineが" + other.gameObject.tag + "と衝突");
 
@@ -62,9 +62,9 @@ public class KillLine : MonoBehaviour {
 		if (other.gameObject.tag == "Ball")
 		{
 			// ボール破壊時のエフェクトを表示
-			//var camera = this.gameObject.transform.parent;
-			//var effect = camera.FindChild("GameOverEffect");
-			//effect.particleSystem.Play();
+			GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/DethParticle" ) ) as GameObject;
+			effect.transform.parent = this.transform;
+			effect.transform.position = new Vector2( -0.0f, -8.0f );
 			
 			// イベントハンドラを呼び出す
 			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
