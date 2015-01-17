@@ -14,7 +14,7 @@ public class CoinUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameObject.GetComponent<Text> ().text = coinNum.ToString ();
+		gameObject.GetComponent<Text> ().text = " x " + coinNum.ToString ();
 	}
 
 	public void AddCoin () {
