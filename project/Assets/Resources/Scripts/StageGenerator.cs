@@ -67,10 +67,12 @@ public class StageGenerator : MonoBehaviour {
 			if(Random.Range(0, 100) < m_createBlockRatio)
 			{
 				m_createBlockRatio -= m_changePercent;
+				ObjectGenerate(m_block);
 			}
 			else
 			{
 				m_createBlockRatio += m_changePercent;
+				ObjectGenerate(m_coin);
 			}
 
 			m_appearRenge -= (m_appearRenge > 2.0f)? m_appearFrequency : 0.0f;
