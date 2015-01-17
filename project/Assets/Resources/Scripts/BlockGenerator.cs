@@ -38,7 +38,7 @@ public class BlockGenerator : MonoBehaviour {
 	{
 		m_block = Resources.Load ("") as GameObject;
 		executeUpdate = UpdateNormal;
-		m_generateCounter = m_scoreHolder / m_appearRenge;
+		m_generateCounter = (int)(m_scoreHolder / m_appearRenge);
 	}
 	
 	//--------------------------------------------------------
