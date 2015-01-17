@@ -11,19 +11,21 @@ public class BlockGenerator : MonoBehaviour {
 // 変数
 //========================================================================================
 	//--public----------------------
-	public float m_appearRenge;				// ブロック出現距離
-	public float m_appearAxel;				// 出現頻度上昇値
-	public float m_feverRenge;				// フィーバー時の出現距離					
+	public float m_appearRenge = 10.0f;				// ブロック出現距離
+	public float m_appearFrequency = 0.2f;			// 出現頻度上昇値
+	public float m_feverRenge = 2.0f;				// フィーバー時の出現距離					
 
 	//--pirvate---------------------
 	private GameObject m_block;
+	private float m_scoreHolder;
+	private int m_generateCounter;
 	
 	
 //========================================================================================
 // プロパティ。イベント
 //========================================================================================
 	private delegate void ExecuteUpdateEventHandler();
-	private ExecuteUpdateEventHandler executeUpdate; 
+	private ExecuteUpdateEventHandler executeUpdate;
 	
 	
 //========================================================================================
@@ -34,7 +36,9 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-		m_block = Resources.Load ("") as GameObject;
+		m_block = Resources.Load ("Prefabs/Objects/Block") as GameObject;
+		executeUpdate = UpdateNormal;
+		m_generateCounter = (int)(m_scoreHolder / m_appearRenge);
 	}
 	
 	//--------------------------------------------------------
@@ -51,7 +55,12 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void UpdateNormal()
 	{
-
+		int count = (int)(m_scoreHolder / m_appearRenge);
+		if(count > m_generateCounter)
+		{
+			m_appearRenge -= (m_appearRenge > 2.0f)? m_appearFrequency : 0.0f;
+			BlockGenerate();
+		}
 	}
 
 
@@ -60,16 +69,45 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void UpdateFever()
 	{
-
+		int count = (int)(m_scoreHolder / m_feverRenge);
+		if(count > m_generateCounter)
+		{
+			BlockGenerate();
+		}
 	}
 
+	//--------------------------------------------------------
+	// スコアを取得する
+	//--------------------------------------------------------
+	public void SetScore(float score)
+	{
+		m_scoreHolder = score;
+	}
+
+	//--------------------------------------------------------
+	// モード変更
+	//--------------------------------------------------------
+	public void ChangeMode()
+	{
+		if(executeUpdate == UpdateNormal)
+		{
+			executeUpdate = UpdateFever;
+		}
+		else
+		{
+			executeUpdate = UpdateFever;
+		}
+
+		m_generateCounter = (int)(m_scoreHolder / m_feverRenge);
+	}
 
 	//--------------------------------------------------------
 	// ブロックを生成する
 	//--------------------------------------------------------
-	void BlockGenerate(Vector3 generatePos)
+	void BlockGenerate()
 	{
-		Instantiate (m_block, generatePos, Quaternion.identity);
+		Vector3 appearPos = new Vector3(Random.Range(-5.0f, 5.0f), m_scoreHolder + 10.0f, 0.0f);
+		Instantiate(m_block, appearPos, Quaternion.identity);
 	}
 
 }
