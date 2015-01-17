@@ -53,6 +53,8 @@ public class KillLine : MonoBehaviour {
 	//--------------------------------------------------------
 	private void OnTriggerEnter(Collider other)
 	{
+		Debug.Log("KillLineが" + other.gameObject.tag + "と衝突");
+
 		// 壁だったら何もしない
 		if (other.gameObject.tag == "Wall") return;
 		
@@ -65,13 +67,11 @@ public class KillLine : MonoBehaviour {
 			//effect.particleSystem.Play();
 			
 			// イベントハンドラを呼び出す
-			this.OnCollidesWithBall();
+			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
 		}
 		
 		// 触れたオブジェクトを削除
 		Destroy(other.gameObject);
-		
-		Debug.Log("以下のオブジェクトを削除");
-		Debug.Log(other.gameObject.tag);
+		Debug.Log("削除対象オブジェクトであったため、KillLineはオブジェクトを削除");
 	}
 }
