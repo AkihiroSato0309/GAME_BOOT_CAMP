@@ -17,13 +17,15 @@ public class BlockGenerator : MonoBehaviour {
 
 	//--pirvate---------------------
 	private GameObject m_block;
+	private float m_scoreHolder;
+	private int m_generateCounter;
 	
 	
 //========================================================================================
 // プロパティ。イベント
 //========================================================================================
 	private delegate void ExecuteUpdateEventHandler();
-	private ExecuteUpdateEventHandler executeUpdate; 
+	private ExecuteUpdateEventHandler executeUpdate;
 	
 	
 //========================================================================================
@@ -35,6 +37,8 @@ public class BlockGenerator : MonoBehaviour {
 	void Start () 
 	{
 		m_block = Resources.Load ("") as GameObject;
+		executeUpdate = UpdateNormal;
+		m_generateCounter = m_scoreHolder / m_appearRenge;
 	}
 	
 	//--------------------------------------------------------
@@ -51,7 +55,11 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void UpdateNormal()
 	{
-
+		int count = (int)(m_scoreHolder / m_appearRenge);
+		if(count > m_generateCounter)
+		{
+			BlockGenerate();
+		}
 	}
 
 
@@ -60,16 +68,45 @@ public class BlockGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void UpdateFever()
 	{
-
+		int count = (int)(m_scoreHolder / m_feverRenge);
+		if(count > m_generateCounter)
+		{
+			BlockGenerate();
+		}
 	}
 
+	//--------------------------------------------------------
+	// スコアを取得する
+	//--------------------------------------------------------
+	public void SetScore(float score)
+	{
+		m_scoreHolder = score;
+	}
 
 	//--------------------------------------------------------
 	// ブロックを生成する
 	//--------------------------------------------------------
-	void BlockGenerate(Vector3 generatePos)
+	public void ChangeMode()
 	{
-		Instantiate (m_block, generatePos, Quaternion.identity);
+		if(executeUpdate == UpdateNormal)
+		{
+			executeUpdate = UpdateFever;
+		}
+		else
+		{
+			executeUpdate = UpdateFever;
+		}
+
+		m_generateCounter = (int)(m_scoreHolder / m_feverRenge);
+	}
+
+	//--------------------------------------------------------
+	// ブロックを生成する
+	//--------------------------------------------------------
+	void BlockGenerate()
+	{
+		Vector3 appearPos = new Vector3(Random.Range(-5.0f, 5.0f), m_scoreHolder + 10.0f, 0.0f);
+		Instantiate(m_block, appearPos, Quaternion.identity);
 	}
 
 }
