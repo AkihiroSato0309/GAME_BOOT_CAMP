@@ -40,6 +40,8 @@ public class ShockWaver : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
+		if (m_touchActionGauge.GetCurrentGaugeNum() <= 0) return;
+
 		// タッチ時の処理
 		if(Input.GetMouseButtonDown(0))
 		{
