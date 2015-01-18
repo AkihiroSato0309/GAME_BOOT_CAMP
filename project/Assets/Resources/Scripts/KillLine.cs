@@ -76,21 +76,17 @@ public class KillLine : MonoBehaviour {
 	//--------------------------------------------------------
 	private void KillBall( GameObject ball )
 	{
-		// ボールの表示を一旦無効にする
+		// 最初は不可視化しておく
 		ball.renderer.enabled = false;
-		
+
 		// ボール破壊時のエフェクトを表示
 		GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/DethParticle" ) ) as GameObject;
 		effect.transform.position = this.transform.position + new Vector3( 0, 2, 0 );
-
-		/*
-		// ボール破壊時エフェクトの終了時に, ボールリスポーン処理が呼ばれるように設定
-		effect.OnEnded += delegate()
-		{ 
-			RespwanBall( other.gameObject );
-		}
-		*/
 		
+		// 死亡エフェクトが終わるときにボールをリスポーンするよう設定
+		var effectScript = effect.GetComponent<AutoFuncExecute> ();
+		effectScript.SetDeleteTimeAndExecuteFunc (1.0f, delegate() { RespwanBall( ball ); } );
+
 		// イベントハンドラを呼び出す
 		//if (OnKilledBall != null) this.OnKilledBall();
 	}
@@ -100,16 +96,19 @@ public class KillLine : MonoBehaviour {
 	//--------------------------------------------------------
 	private void RespwanBall( GameObject ball )
 	{
-		/*
-		// リスポーンエフェクト再生
-		var effect = Instantiate( Resources.Load( @"Prefabs/Particles/RespawnParticle" ) ) as RespawnParticle;
-
 		// リスポーンエフェクト終了時に, ボールを可視化, カメラと同じ場所に座標をセットするように設定
-		effect.OnEnded += delegate()
-		{
+		AutoFuncExecute.ExecuteFuncWithDeleteEventHandler ShowBall = delegate() {
 			ball.renderer.enabled = true;
-			ball.transform.position = this.transform.parent.transform.position;
-		}
-		*/
+			ball.transform.position = this.transform.parent.position + new Vector3 (0, 0, 10);
+			ball.rigidbody2D.velocity = new Vector2(0.0f, 0.0f);
+		};
+
+		// リスポーンエフェクト再生
+		var effect = Instantiate( Resources.Load( @"Prefabs/Particles/RespawnParticle" ) ) as GameObject;
+		effect.transform.position = this.transform.parent.position + new Vector3 (0, 0, 10);
+
+		// リスポーンエフェクトが終わるときにボールを可視化するよう設定
+		var effectScript = effect.GetComponent<AutoFuncExecute> ();
+		effectScript.SetDeleteTimeAndExecuteFunc (2.2f, ShowBall);
 	}
 }

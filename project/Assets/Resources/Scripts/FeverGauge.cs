@@ -35,6 +35,7 @@ public class FeverGauge : MonoBehaviour {
 		if (isFevering) {
 			currentAmount -= 1.0f / removeAmountFrame;
 			if (currentAmount <= 0) {
+				isFevering = false;
 				if (OnEmpty != null) OnEmpty ();
 			}
 		}

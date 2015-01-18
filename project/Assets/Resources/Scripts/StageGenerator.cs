@@ -18,6 +18,7 @@ public class StageGenerator : MonoBehaviour {
 
 	//--pirvate---------------------
 	private CoinUI m_coinUI;
+	private FeverGauge m_feverGuage;
 	private GameObject m_block;
 	private GameObject m_coin;
 	private float m_scoreHolder;
@@ -104,6 +105,14 @@ public class StageGenerator : MonoBehaviour {
 	}
 
 	//--------------------------------------------------------
+	// コイン生成時に必要なフィーバーゲージをセットする
+	//--------------------------------------------------------
+	public void SetFeverGuage(FeverGauge feverGuage)
+	{
+		m_feverGuage = feverGuage;
+	}
+
+	//--------------------------------------------------------
 	// スコアを取得する
 	//--------------------------------------------------------
 	public void SetScore(float score)
@@ -139,10 +148,12 @@ public class StageGenerator : MonoBehaviour {
 		if (inst.tag == "Coin") {
 			Coin coin = inst.GetComponent<Coin> ();
 			coin.OnCollidesWithBall += m_coinUI.AddCoin;
+			coin.OnCollidesWithBall += m_feverGuage.AddGauge;
 		} 
 		else if (inst.tag == "Block") {
 			Block block = inst.GetComponent<Block> ();
 			block.OnDied += m_coinUI.AddCoin;
+			block.OnDied += m_feverGuage.AddGauge;
 		}
 	}
 

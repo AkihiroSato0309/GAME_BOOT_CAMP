@@ -60,13 +60,17 @@ public class GameManager : MonoBehaviour {
 		
 		// インスタンス化が終わるよう1フレーム待つ
 		yield return null;
-		
+
+		// ボールのスクリプト取得
+		Ball ballScript = ball.GetComponent<Ball> ();
+
 		// カメラスクリプト取得
 		GameSceneCamera cameraScript = camera.GetComponent<GameSceneCamera> ();
 		
 		// 各UIスクリプト取得
 		Meter meterUIScript = canvas.transform.FindChild ("Meter").GetComponent<Meter> ();
 		CoinUI coinUIScript = canvas.transform.FindChild ("CoinUI").FindChild("Coin").GetComponent<CoinUI> ();
+		FeverGauge feverGuageScript = canvas.transform.FindChild ("FeverUI").FindChild ("FeverGauge").GetComponent<FeverGauge> ();
 		
 		// ステージ生成機スクリプト取得
 		StageGenerator stageGeneratorScript = stageGenerator.GetComponent<StageGenerator> ();
@@ -76,8 +80,15 @@ public class GameManager : MonoBehaviour {
 		cameraScript.OnMoved += meterUIScript.SetMeter;
 		cameraScript.OnMoved += stageGeneratorScript.SetScore;
 
-		// ステージ生成スクリプトにを設定
-		stageGeneratorScript.SetCoinUI (coinUIScript); 
+		// ステージ生成スクリプトにオブジェクトを設定
+		stageGeneratorScript.SetCoinUI (coinUIScript);
+		stageGeneratorScript.SetFeverGuage (feverGuageScript);
+
+		// フィーバーUIにイベントハンドラを設定
+		feverGuageScript.OnFilled += stageGeneratorScript.ChangeMode;
+		feverGuageScript.OnFilled += ballScript.ChangeMode;
+		feverGuageScript.OnEmpty += stageGeneratorScript.ChangeMode;
+		feverGuageScript.OnEmpty += ballScript.ChangeMode;
 	}
 
 	//--------------------------------------------------------
