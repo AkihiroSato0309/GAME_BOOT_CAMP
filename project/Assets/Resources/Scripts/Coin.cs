@@ -49,9 +49,10 @@ public class Coin : MonoBehaviour {
 		// ボールだったら
 		if (other.gameObject.tag == "Ball")
 		{			
-			// イベントハンドラを呼び出す
+			// イベントハンドラを呼び出し, エフェクトを生成
 			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
-			Debug.Log("ore");
+			GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/GetCoin" ) ) as GameObject;
+			effect.transform.position = this.transform.position;
 			Destroy(this.gameObject);
 		}
 	}

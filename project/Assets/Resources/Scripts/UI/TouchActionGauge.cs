@@ -15,13 +15,17 @@ public class TouchActionGauge : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (touchGaugeStack.GetComponent<TouchGaugeStack> ().GetCurrentGaugeNum () < 8 && !touchRecoverGauge.GetComponent<TouchRecoverGauge> ().IsActive ()) {
+
+			touchRecoverGauge.GetComponent<TouchRecoverGauge> ().Recover ();
+		}
 	}
 
 	// Please confirm whether or not TouchGaugeStack is not empty before you call this function
 	public void UseTouchAction () {
 		TouchGaugeStack touchGaugeStackScript = touchGaugeStack.GetComponent<TouchGaugeStack> ();
+		if (touchGaugeStackScript.GetCurrentGaugeNum() <= 0) return;
 		touchGaugeStackScript.RemoveGauge ();
-		touchRecoverGauge.GetComponent<TouchRecoverGauge> ().Recover ();
 	}
 
 	public GameObject GetTouchGaugeStack () {

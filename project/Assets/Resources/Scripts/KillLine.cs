@@ -105,7 +105,7 @@ public class KillLine : MonoBehaviour {
 
 		// リスポーンエフェクト再生
 		var effect = Instantiate( Resources.Load( @"Prefabs/Particles/RespawnParticle" ) ) as GameObject;
-		effect.transform.position = this.transform.parent.position + new Vector3 (0, 0, 10);
+		effect.transform.position = this.transform.parent.position + new Vector3 (0, 0, 8);
 
 		// リスポーンエフェクトが終わるときにボールを可視化するよう設定
 		var effectScript = effect.GetComponent<AutoFuncExecute> ();
