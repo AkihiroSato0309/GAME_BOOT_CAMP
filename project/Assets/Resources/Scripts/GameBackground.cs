@@ -46,7 +46,6 @@ public class GameBackground : MonoBehaviour {
 	public void ChangeMaterial (int matNum) 
 	{
 		renderer.material = m_materials [matNum];
-		Debug.Log (matNum);
 	}
 
 }
