@@ -31,4 +31,9 @@ public class TouchActionGauge : MonoBehaviour {
 	public GameObject GetTouchGaugeStack () {
 		return touchGaugeStack.gameObject;
 	}
+
+	public int GetCurrentGaugeNum() {
+		TouchGaugeStack touchGaugeStackScript = touchGaugeStack.GetComponent<TouchGaugeStack> ();
+		return touchGaugeStackScript.GetCurrentGaugeNum ();
+	}
 }
