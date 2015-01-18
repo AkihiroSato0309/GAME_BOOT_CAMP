@@ -47,7 +47,7 @@ public class CameraBack : MonoBehaviour {
 	{
 		// メインカメラより遅いスクロール
 		Vector3 mainPos = Camera.main.transform.position;
-		mainPos.y /= 2.0f;
+		mainPos.y /= 9.0f;
 		gameObject.transform.position = mainPos;
 		int counter = (int)((mainPos.y + 20.0f) / m_backHeight);
 		if(counter > m_textureNum)
