@@ -11,7 +11,7 @@ public class testbutton : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		this.transform.Translate(0.0f, 0.1f, 0.0f);
 	}
 
 	public void Saikai()

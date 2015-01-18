@@ -1,13 +1,13 @@
 ﻿//========================================================================================
 //
-// 製作者 :　
+// 製作者 :　大榮圭祐
 //
 //========================================================================================
 
 using UnityEngine;
 using System.Collections;
 
-public class GameSceneCamera : MonoBehaviour {
+public class MenuBall : MonoBehaviour {
 	//========================================================================================
 	// 定数
 	//========================================================================================
@@ -17,18 +17,16 @@ public class GameSceneCamera : MonoBehaviour {
 	// 変数
 	//========================================================================================
 	//--public----------------------
-	public GameObject ball;
 
 	
 	//--pirvate---------------------
+	bool isMovingLeft = true;
 	
 	
 	//========================================================================================
 	// プロパティ。イベント
 	//========================================================================================
-	public delegate void CameraMoveEventHandler( float cameraPosY );
-	public event CameraMoveEventHandler OnMoved;						// カメラ上昇イベント
-
+	
 	
 	//========================================================================================
 	// 関数
@@ -38,7 +36,7 @@ public class GameSceneCamera : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-		
+		gameObject.rigidbody2D.angularVelocity = 1000.0f;
 	}
 	
 	//--------------------------------------------------------
@@ -46,24 +44,20 @@ public class GameSceneCamera : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
-		// ボールが存在していなければ何もしない
-		if (ball == null) return;
-		
-		// ボールとカメラ間のy方向のギャップ（距離）を取得
-		// OFFSETは, スクロール開始の基準距離を変更できる. 0で画面中心
-		const float OFFSET = 3.0f;
-		float distance = this.ball.transform.position.y - (this.transform.position.y + OFFSET);
-		
-		// ボールがカメラより上にあれば（ボールが画面中央より上へ跳んでいたら）
-		if (distance > 0.0f)
+		if (Random.Range (0, 60) == 0)
 		{
-			// カメラのy座標を, ボールのy座標と一致させる（ボールに追従する）
-			Vector3 position = this.transform.position;
-			position.y += distance;
-			this.transform.position = position;
-			
-			// イベントハンドラの呼び出し
-			if (OnMoved != null) this.OnMoved (position.y);
+			float force = Random.Range (5.0f, 10.0f);
+			if (isMovingLeft) force *= -1;
+			gameObject.rigidbody2D.AddForce( new Vector2(force, 0.0f) );
+			gameObject.rigidbody2D.angularVelocity = force * 10;
 		}
+	}
+
+	//--------------------------------------------------------
+	// 更新処理
+	//--------------------------------------------------------
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		isMovingLeft = !isMovingLeft;
 	}
 }
