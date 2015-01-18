@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour {
 		}
 
 		if (second <= COUNT_MIN) {
-			// Generate finish word
+			Instantiate (Resources.Load ("Prefabs/UI/Finish"));
 			isActive = false;
 			// Call event handlers
 			OnOver();
