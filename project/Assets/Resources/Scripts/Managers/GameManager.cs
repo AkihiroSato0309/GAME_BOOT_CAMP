@@ -107,8 +107,34 @@ public class GameManager : MonoBehaviour {
 	//--------------------------------------------------------
 	private GameObject CreateBall()
 	{
-		// TODO: あとでSwitch文に変えるボールを生成
-		GameObject ball = Instantiate (Resources.Load (@"Prefabs/Objects/Ball/Ball")) as GameObject;
+		string animalName = "GorillaBall";
+
+		switch (AnimalManager.s_animalID)
+		{
+		case AnimalManager.eAnimals.Gorilla:
+			animalName = "GorillaBall";
+			break;
+		case AnimalManager.eAnimals.Lion:
+			animalName = "LionBall";
+			break;
+		case AnimalManager.eAnimals.Pig:
+			animalName = "PigBall";
+			break;
+		case AnimalManager.eAnimals.Rhino:
+			animalName = "GorillaBall";
+			break;
+		case AnimalManager.eAnimals.Tiger:
+			animalName = "GorillaBall";
+			break;
+		case AnimalManager.eAnimals.Panda:
+			animalName = "PandaBall";
+			break;
+		default:
+			animalName = "PandaBall";
+			break;
+		}
+
+		GameObject ball = Instantiate (Resources.Load (@"Prefabs/Objects/Ball/" + animalName)) as GameObject;
 		ball.name = "Ball";
 
 		// 最初は不可視化しておく

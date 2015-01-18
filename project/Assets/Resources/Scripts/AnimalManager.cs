@@ -21,7 +21,7 @@ public class AnimalManager : MonoBehaviour {
 	// 変数
 	//========================================================================================
 	//--public----------------------
-	public static eAnimals s_animalID;
+	public static eAnimals s_animalID = eAnimals.Panda;
 	
 	//--pirvate---------------------
 	
