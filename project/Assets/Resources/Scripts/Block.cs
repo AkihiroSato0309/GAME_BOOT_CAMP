@@ -16,6 +16,9 @@ public class Block : MonoBehaviour {
     public Material[] mat = new Material[3];    //ブロックのマテリアル
     //--private----------------------
     public int hitCount;                       //ブロック衝突回数カウンター
+	//--event------------------------
+	public delegate void DeathEventHandler();
+	public event DeathEventHandler OnDied;
 
 //========================================================================================
 // 関数
@@ -32,17 +35,7 @@ public class Block : MonoBehaviour {
     // 更新処理
     //--------------------------------------------------------
 	void Update () {
-	    switch(hitCount){
-            case 0:     //ブロック消滅
-                Destroy(this.gameObject);      //オブジェクト破棄
-                break;
-            case 1:     //ブロック衝突回数2回目
-                renderer.material = mat[0];
-                break;
-            case 2:     //ブロック衝突回数1回目
-                renderer.material = mat[1];
-                break;
-        }
+	    
 	}
 
     //--------------------------------------------------------
@@ -50,8 +43,23 @@ public class Block : MonoBehaviour {
     //--------------------------------------------------------
 	void OnCollisionEnter2D(Collision2D col)
     {
-        hitCount--;     //ヒットカウントを減らす
-		Debug.Log ("ahe");
-    }
+		// ボールだったら
+		if (col.gameObject.tag == "Ball")
+		{			
+			hitCount--;     //ヒットカウントを減らす
 
+			switch(hitCount){
+			case 0:     //ブロック消滅, イベントハンドラ呼び出し
+				if (OnDied != null) this.OnDied();
+				Destroy(this.gameObject);
+				break;
+			case 1:     //ブロック衝突回数2回目
+				renderer.material = mat[0];
+				break;
+			case 2:     //ブロック衝突回数1回目
+				renderer.material = mat[1];
+				break;
+			}
+		}    
+    }
 }

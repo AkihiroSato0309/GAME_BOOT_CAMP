@@ -51,7 +51,7 @@ public class AutoFuncExecute : MonoBehaviour {
 	//--------------------------------------------------------
 	// 死亡時刻等のセット
 	//--------------------------------------------------------
-	void SetDeleteTimeAndExecuteFunc (float time, ExecuteFuncWithDeleteEventHandler func)
+	public void SetDeleteTimeAndExecuteFunc (float time, ExecuteFuncWithDeleteEventHandler func)
 	{
 		m_deleteTime = time;
 		executeFuncWithDestory = func;
