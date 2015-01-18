@@ -17,7 +17,7 @@ public class ShockWaver : MonoBehaviour {
 	
 	//--pirvate---------------------
 	private Camera m_mainCamera;
-	private TouchActionGauge m_touchActionGauge;
+	private TouchActionGauge m_touchActionGauge = null;
 	private GameObject m_ball;
 	private GameObject m_shockWaveParticle;
 
@@ -40,6 +40,8 @@ public class ShockWaver : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
+		if (m_touchActionGauge == null) return;
+
 		if (m_touchActionGauge.GetCurrentGaugeNum() <= 0) return;
 
 		// タッチ時の処理
@@ -75,7 +77,7 @@ public class ShockWaver : MonoBehaviour {
 
 		float addPower = m_maxPower * cutRatio;
 		addForceVelocity *= addPower;
-		m_ball.rigidbody2D.AddForce(addForceVelocity, ForceMode2D.Force);			
+		m_ball.GetComponent<Ball>().AddVelocity(addForceVelocity);
 	}
 
 	//--------------------------------------------------------

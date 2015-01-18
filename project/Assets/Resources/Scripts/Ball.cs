@@ -52,9 +52,11 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	// 移動ベクトルを変更
 	//--------------------------------------------------------
-	public void AddForce(Vector2 force)
+	public void AddVelocity(Vector2 force)
 	{
-		this.rigidbody2D.AddForce (force);
+		Vector2 tmp;
+		tmp = this.rigidbody2D.velocity + force;
+		this.rigidbody2D.velocity = tmp;
 	}
 
 

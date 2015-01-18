@@ -21,7 +21,8 @@ public class CameraBack : MonoBehaviour {
 //========================================================================================
 // プロパティ。イベント
 //========================================================================================
-	
+	private delegate void RenderBackEventHandler();
+	private RenderBackEventHandler renderBack;
 	
 //========================================================================================
 // 関数
@@ -38,12 +39,22 @@ public class CameraBack : MonoBehaviour {
 		GameObject obj;
 		obj = Instantiate (m_backGround) as GameObject;
 		obj.GetComponent<GameBackground>().ChangeMaterial(m_textureNum);
+
+		renderBack = NormalBack;
 	}
 	
 	//--------------------------------------------------------
 	// 更新処理
 	//--------------------------------------------------------
 	void Update () 
+	{
+		renderBack ();
+	}
+
+	//--------------------------------------------------------
+	// 通常時の描画
+	//--------------------------------------------------------
+	void NormalBack()
 	{
 		// メインカメラより遅いスクロール
 		Vector3 mainPos = Camera.main.transform.position;
@@ -54,10 +65,18 @@ public class CameraBack : MonoBehaviour {
 		{
 			GameObject obj;
 			m_textureNum=counter;
-
+			
 			obj = Instantiate(m_backGround, new Vector3(0.0f, m_textureNum * m_backHeight, 0.0f), Quaternion.identity) as GameObject;
 			if(m_textureNum > 4) 	obj.GetComponent<GameBackground>().ChangeMaterial(4);
 			else  					obj.GetComponent<GameBackground>().ChangeMaterial(m_textureNum);
 		}
+	}
+
+	//--------------------------------------------------------
+	// フィーバー時の描画
+	//--------------------------------------------------------
+	void FeverBack()
+	{
+
 	}
 }
