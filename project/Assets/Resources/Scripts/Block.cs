@@ -49,10 +49,11 @@ public class Block : MonoBehaviour {
 			hitCount--;     //ヒットカウントを減らす
 
 			switch(hitCount){
-			case 0:     //ブロック消滅, イベントハンドラ呼び出し
+			case 0:     //ブロック消滅, イベントハンドラ呼び出し, エフェクト生成
 				if (OnDied != null) this.OnDied();
+				GameObject effect = Instantiate( Resources.Load( @"Prefabs/Particles/BlockBrake" ) ) as GameObject;
+				effect.transform.position = this.transform.position;
 				Destroy(this.gameObject);
-
 				break;
 			case 1:     //ブロック衝突回数2回目
 				renderer.material = mat[0];
