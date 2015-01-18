@@ -21,7 +21,7 @@ public class SceneChanger : MonoBehaviour {
 		Application.LoadLevel ("ItemSelect");
 	}
 
-	public void ChangeMenuScene () {
+	public void ChangeToMenuScene () {
 		Application.LoadLevel ("Menu");
 	}
 

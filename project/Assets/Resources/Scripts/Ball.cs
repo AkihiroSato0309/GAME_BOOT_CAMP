@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour {
 
 	
 	//--pirvate---------------------
+	private Vector2 m_velocity;
+	private bool m_flag;
 
 	
 //========================================================================================
@@ -24,7 +26,7 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
-
+		m_flag = false;
 	}
 	
 	//--------------------------------------------------------
@@ -32,7 +34,19 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
+		m_velocity = this.rigidbody2D.velocity;
+	}
 
+	//--------------------------------------------------------
+	// 移動ベクトルを変更
+	//--------------------------------------------------------
+	public void OnCollisionEnter2D(Collision2D other)
+	{
+		if(m_flag == true && other.gameObject.tag == "Block")
+		{
+			this.rigidbody2D.velocity = m_velocity;
+			Destroy(other.gameObject);
+		}
 	}
 
 	//--------------------------------------------------------
@@ -41,5 +55,15 @@ public class Ball : MonoBehaviour {
 	public void AddForce(Vector2 force)
 	{
 		this.rigidbody2D.AddForce (force);
+	}
+
+
+	//--------------------------------------------------------
+	// モードを切り替える
+	//--------------------------------------------------------
+	public void ChangeMode()
+	{
+		if (m_flag == true)	m_flag = false;
+		else 				m_flag = true;
 	}
 }

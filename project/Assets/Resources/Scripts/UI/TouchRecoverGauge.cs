@@ -20,7 +20,7 @@ public class TouchRecoverGauge : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isActive == false) return;
+		if (!isActive) return;
 
 		currentAmount += recoverNum;
 		gameObject.GetComponent<Image> ().fillAmount = currentAmount;
@@ -33,6 +33,14 @@ public class TouchRecoverGauge : MonoBehaviour {
 	}
 
 	public void Recover () {
+		isActive = true;
+	}
+
+	public void StopUpdate () {
+		isActive = false;
+	}
+	
+	public void StartUpdate () {
 		isActive = true;
 	}
 }

@@ -11,7 +11,6 @@ public class TouchActionGauge : MonoBehaviour {
 		touchGaugeStack = transform.FindChild ("TouchGaugeStack").gameObject;
 		touchRecoverGauge = transform.FindChild ("TouchRecoverGauge").gameObject;
 		touchRecoverGauge.GetComponent<TouchRecoverGauge> ().OnFilled += touchGaugeStack.GetComponent<TouchGaugeStack> ().AddGauge;
-		UseTouchAction ();
 	}
 	
 	// Update is called once per frame
