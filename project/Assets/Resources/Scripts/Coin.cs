@@ -44,13 +44,15 @@ public class Coin : MonoBehaviour {
 	//--------------------------------------------------------
 	// 衝突時処理
 	//--------------------------------------------------------
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{		
 		// ボールだったら
 		if (other.gameObject.tag == "Ball")
 		{			
 			// イベントハンドラを呼び出す
 			if (OnCollidesWithBall != null) this.OnCollidesWithBall();
+			Debug.Log("ore");
+			Destroy(this.gameObject);
 		}
 	}
 }

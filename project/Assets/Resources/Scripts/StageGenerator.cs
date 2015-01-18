@@ -17,6 +17,8 @@ public class StageGenerator : MonoBehaviour {
 	public int m_changePercent = 5;
 
 	//--pirvate---------------------
+	private CoinUI m_coinUI;
+	private FeverGauge m_feverGuage;
 	private GameObject m_block;
 	private GameObject m_coin;
 	private float m_scoreHolder;
@@ -95,6 +97,22 @@ public class StageGenerator : MonoBehaviour {
 	}
 
 	//--------------------------------------------------------
+	// コイン生成時に必要なコインUIをセットする
+	//--------------------------------------------------------
+	public void SetCoinUI(CoinUI coinUI)
+	{
+		m_coinUI = coinUI;
+	}
+
+	//--------------------------------------------------------
+	// コイン生成時に必要なフィーバーゲージをセットする
+	//--------------------------------------------------------
+	public void SetFeverGuage(FeverGauge feverGuage)
+	{
+		m_feverGuage = feverGuage;
+	}
+
+	//--------------------------------------------------------
 	// スコアを取得する
 	//--------------------------------------------------------
 	public void SetScore(float score)
@@ -125,7 +143,18 @@ public class StageGenerator : MonoBehaviour {
 	void ObjectGenerate(GameObject obj)
 	{
 		Vector3 appearPos = new Vector3(Random.Range(-5.0f, 5.0f), m_scoreHolder + 10.0f, 0.0f);
-		Instantiate(obj, appearPos, Quaternion.identity);
+		GameObject inst = Instantiate(obj, appearPos, Quaternion.identity) as GameObject;
+
+		if (inst.tag == "Coin") {
+			Coin coin = inst.GetComponent<Coin> ();
+			coin.OnCollidesWithBall += m_coinUI.AddCoin;
+			coin.OnCollidesWithBall += m_feverGuage.AddGauge;
+		} 
+		else if (inst.tag == "Block") {
+			Block block = inst.GetComponent<Block> ();
+			block.OnDied += m_coinUI.AddCoin;
+			block.OnDied += m_feverGuage.AddGauge;
+		}
 	}
 
 }
