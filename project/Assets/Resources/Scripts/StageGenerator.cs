@@ -11,9 +11,9 @@ public class StageGenerator : MonoBehaviour {
 // 変数
 //========================================================================================
 	//--public----------------------
-	public float m_appearRenge = 10.0f;				// ブロック出現距離
-	public float m_appearFrequency = 0.2f;			// 出現頻度上昇値
-	public float m_feverRenge = 2.0f;				// フィーバー時の出現距離
+	public float m_appearRenge = 15.0f;				// ブロック出現距離
+	public float m_appearFrequency = 0.002f;		// 出現頻度上昇値
+	public float m_feverRenge = 4.0f;				// フィーバー時の出現距離
 	public int m_changePercent = 5;
 
 	//--pirvate---------------------
@@ -77,7 +77,7 @@ public class StageGenerator : MonoBehaviour {
 				ObjectGenerate(m_coin);
 			}
 
-			m_appearRenge -= (m_appearRenge > 2.0f)? m_appearFrequency : 0.0f;
+			m_appearRenge -= (m_appearRenge > 7.0f)? m_appearFrequency : 0.0f;
 			m_generateCounter = count;
 		}
 		m_scoreHolder = Camera.main.transform.position.y;
@@ -93,6 +93,7 @@ public class StageGenerator : MonoBehaviour {
 		if(count > m_generateCounter)
 		{
 			ObjectGenerate(m_block);
+			m_generateCounter = count;
 		}
 	}
 
@@ -127,14 +128,14 @@ public class StageGenerator : MonoBehaviour {
 	{
 		if(executeUpdate == UpdateNormal)
 		{
+			m_generateCounter = (int)(m_scoreHolder / m_feverRenge);
 			executeUpdate = UpdateFever;
 		}
 		else
 		{
-			executeUpdate = UpdateFever;
+			m_generateCounter = (int)(m_scoreHolder / m_appearRenge);
+			executeUpdate = UpdateNormal;
 		}
-
-		m_generateCounter = (int)(m_scoreHolder / m_feverRenge);
 	}
 
 	//--------------------------------------------------------
@@ -142,7 +143,7 @@ public class StageGenerator : MonoBehaviour {
 	//--------------------------------------------------------
 	void ObjectGenerate(GameObject obj)
 	{
-		Vector3 appearPos = new Vector3(Random.Range(-5.0f, 5.0f), m_scoreHolder + 10.0f, 0.0f);
+		Vector3 appearPos = new Vector3(Random.Range(-4.0f, 4.0f), m_scoreHolder + 10.0f, 0.0f);
 		GameObject inst = Instantiate(obj, appearPos, Quaternion.identity) as GameObject;
 
 		if (inst.tag == "Coin") {

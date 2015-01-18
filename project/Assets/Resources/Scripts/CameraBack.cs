@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameBackground : MonoBehaviour {
+public class CameraBack : MonoBehaviour {
 //========================================================================================
 // 定数
 //========================================================================================
@@ -11,10 +11,12 @@ public class GameBackground : MonoBehaviour {
 // 変数
 //========================================================================================
 	//--public----------------------
-	public Material[] m_materials;
+	
 	
 	//--pirvate---------------------
+	private GameObject m_backGround;
 	private int m_textureNum;
+	private float m_backHeight;
 	
 //========================================================================================
 // プロパティ。イベント
@@ -29,7 +31,13 @@ public class GameBackground : MonoBehaviour {
 	//--------------------------------------------------------
 	void Start () 
 	{
+		m_backGround = Resources.Load ("Prefabs/Objects/BackGround") as GameObject;
+		m_textureNum = 0;
+		m_backHeight = m_backGround.transform.localScale.y;
 
+		GameObject obj;
+		obj = Instantiate (m_backGround) as GameObject;
+		obj.GetComponent<GameBackground>().ChangeMaterial(m_textureNum);
 	}
 	
 	//--------------------------------------------------------
@@ -37,16 +45,19 @@ public class GameBackground : MonoBehaviour {
 	//--------------------------------------------------------
 	void Update () 
 	{
-		
-	}
+		// メインカメラより遅いスクロール
+		Vector3 mainPos = Camera.main.transform.position;
+		mainPos.y /= 2.0f;
+		gameObject.transform.position = mainPos;
+		int counter = (int)((mainPos.y + 20.0f) / m_backHeight);
+		if(counter > m_textureNum)
+		{
+			GameObject obj;
+			m_textureNum=counter;
 
-	//--------------------------------------------------------
-	// マテリアルを切り替える
-	//--------------------------------------------------------
-	public void ChangeMaterial (int matNum) 
-	{
-		renderer.material = m_materials [matNum];
-		Debug.Log (matNum);
+			obj = Instantiate(m_backGround, new Vector3(0.0f, m_textureNum * m_backHeight, 0.0f), Quaternion.identity) as GameObject;
+			if(m_textureNum > 4) 	obj.GetComponent<GameBackground>().ChangeMaterial(4);
+			else  					obj.GetComponent<GameBackground>().ChangeMaterial(m_textureNum);
+		}
 	}
-
 }
