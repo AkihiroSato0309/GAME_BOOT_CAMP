@@ -27,7 +27,8 @@ public class TouchRecoverGauge : MonoBehaviour {
 
 		if (currentAmount >= MAX_AMOUNT) {
 			if (this.OnFilled != null) this.OnFilled ();
-			gameObject.GetComponent<Image> ().fillAmount = 0.0f;
+			currentAmount = 0.0f;
+			gameObject.GetComponent<Image> ().fillAmount = currentAmount;
 			isActive = false;
 		}
 	}
@@ -42,5 +43,9 @@ public class TouchRecoverGauge : MonoBehaviour {
 	
 	public void StartUpdate () {
 		isActive = true;
+	}
+
+	public bool IsActive () {
+		return isActive;
 	}
 }
