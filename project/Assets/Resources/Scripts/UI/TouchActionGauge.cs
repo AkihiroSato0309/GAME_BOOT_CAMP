@@ -20,6 +20,7 @@ public class TouchActionGauge : MonoBehaviour {
 	// Please confirm whether or not TouchGaugeStack is not empty before you call this function
 	public void UseTouchAction () {
 		TouchGaugeStack touchGaugeStackScript = touchGaugeStack.GetComponent<TouchGaugeStack> ();
+		if (touchGaugeStackScript.GetCurrentGaugeNum() <= 0) return;
 		touchGaugeStackScript.RemoveGauge ();
 		touchRecoverGauge.GetComponent<TouchRecoverGauge> ().Recover ();
 	}

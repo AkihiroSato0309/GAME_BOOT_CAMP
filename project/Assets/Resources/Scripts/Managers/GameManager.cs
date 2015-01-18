@@ -64,13 +64,18 @@ public class GameManager : MonoBehaviour {
 		// ボールのスクリプト取得
 		Ball ballScript = ball.GetComponent<Ball> ();
 
+		// 衝撃波のスクリプト取得
+		ShockWaver shockWaverScript = shockWaver.GetComponent<ShockWaver> ();
+
 		// カメラスクリプト取得
 		GameSceneCamera cameraScript = camera.GetComponent<GameSceneCamera> ();
 		
 		// 各UIスクリプト取得
 		Meter meterUIScript = canvas.transform.FindChild ("Meter").GetComponent<Meter> ();
+		Timer timerScript = canvas.transform.FindChild ("Timer").GetComponent<Timer> ();
 		CoinUI coinUIScript = canvas.transform.FindChild ("CoinUI").FindChild("Coin").GetComponent<CoinUI> ();
 		FeverGauge feverGuageScript = canvas.transform.FindChild ("FeverUI").FindChild ("FeverGauge").GetComponent<FeverGauge> ();
+		TouchActionGauge touchActionGauge = canvas.transform.FindChild ("TouchActionGauge").GetComponent<TouchActionGauge> ();
 		
 		// ステージ生成機スクリプト取得
 		StageGenerator stageGeneratorScript = stageGenerator.GetComponent<StageGenerator> ();
@@ -80,9 +85,15 @@ public class GameManager : MonoBehaviour {
 		cameraScript.OnMoved += meterUIScript.SetMeter;
 		cameraScript.OnMoved += stageGeneratorScript.SetScore;
 
+		// 衝撃波スクリプトにオブジェクトを渡す
+		shockWaverScript.SetTouchActionGauge (touchActionGauge);
+
 		// ステージ生成スクリプトにオブジェクトを設定
 		stageGeneratorScript.SetCoinUI (coinUIScript);
 		stageGeneratorScript.SetFeverGuage (feverGuageScript);
+
+		// タイマーにイベントハンドラを設定
+		timerScript.OnOver += FinishGame;
 
 		// フィーバーUIにイベントハンドラを設定
 		feverGuageScript.OnFilled += stageGeneratorScript.ChangeMode;
@@ -122,7 +133,7 @@ public class GameManager : MonoBehaviour {
 	//--------------------------------------------------------
 	// ゲーム終了処理
 	//--------------------------------------------------------
-	private void EndGame()
+	private void FinishGame()
 	{
 		// スコアを記憶する
 		//float score = this.gameInfoHolder.getHeight();

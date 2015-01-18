@@ -11,6 +11,10 @@ public class Timer : MonoBehaviour {
 	private int COUNT_MAX = 60;
 	private bool isActive = true;
 
+	// Event
+	public delegate void TimeOverEventHandler();
+	public event TimeOverEventHandler OnOver;
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -27,6 +31,8 @@ public class Timer : MonoBehaviour {
 		if (second <= COUNT_MIN) {
 			// Generate finish word
 			isActive = false;
+			// Call event handlers
+			OnOver();
 		}
 
 		gameObject.GetComponent<Text> ().text = second.ToString ();
