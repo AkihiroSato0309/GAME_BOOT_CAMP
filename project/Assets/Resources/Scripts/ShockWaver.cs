@@ -17,9 +17,10 @@ public class ShockWaver : MonoBehaviour {
 	
 	//--pirvate---------------------
 	private Camera m_mainCamera;
+	private TouchActionGauge m_touchActionGauge;
 	private GameObject m_ball;
 	private GameObject m_shockWaveParticle;
-	
+
 //========================================================================================
 // 関数
 //========================================================================================
@@ -81,6 +82,11 @@ public class ShockWaver : MonoBehaviour {
 	void EffectCreate(Vector3 pos)
 	{
 		Instantiate (m_shockWaveParticle, pos, Quaternion.identity);
+		m_touchActionGauge.UseTouchAction ();
 	}
 
+	public void SetTouchActionGauge(TouchActionGauge gauge)
+	{
+		m_touchActionGauge = gauge;
+	}
 }

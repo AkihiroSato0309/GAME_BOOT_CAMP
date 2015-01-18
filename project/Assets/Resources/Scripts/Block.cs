@@ -52,6 +52,7 @@ public class Block : MonoBehaviour {
 			case 0:     //ブロック消滅, イベントハンドラ呼び出し
 				if (OnDied != null) this.OnDied();
 				Destroy(this.gameObject);
+
 				break;
 			case 1:     //ブロック衝突回数2回目
 				renderer.material = mat[0];
