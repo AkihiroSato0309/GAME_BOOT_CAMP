@@ -35,6 +35,7 @@ public class FeverGauge : MonoBehaviour {
 		if (isFevering) {
 			currentAmount -= 1.0f / removeAmountFrame;
 			if (currentAmount <= 0) {
+				isFevering = false;
 				if (OnEmpty != null) OnEmpty ();
 			}
 		}
@@ -43,5 +44,6 @@ public class FeverGauge : MonoBehaviour {
 	// Call this function when player ball get a coin
 	public void AddGauge () {
 		currentAmount += oneGaugeAmount;
+		currentAmount = Mathf.Clamp (currentAmount, 0.0f, 1.0f);
 	}
 }

@@ -24,6 +24,11 @@ public class Timer : MonoBehaviour {
 			count = COUNT_MAX;
 		}
 
+		if (second <= COUNT_MIN) {
+			// Generate finish word
+			isActive = false;
+		}
+
 		gameObject.GetComponent<Text> ().text = second.ToString ();
 	}
 
