@@ -16,6 +16,11 @@ public class OptionManager : MonoBehaviour {
 		GameObject.Find ("Timer").GetComponent<Timer> ().StopUpdate ();
 		GameObject.Find ("TouchRecoverGauge").GetComponent<TouchRecoverGauge> ().StopUpdate();
 		StartCoroutine ("CreateDisplayOption");
+<<<<<<< HEAD
+=======
+		Time.timeScale = 0.0f;
+		Debug.Log ("もみあげおおおおおお");
+>>>>>>> 997cecbea45da3380377c8ef981061809c319e44
 	}
 
 	IEnumerator CreateDisplayOption () {
@@ -33,5 +38,6 @@ public class OptionManager : MonoBehaviour {
 		GameObject.Find ("Timer").GetComponent<Timer> ().StartUpdate ();
 		GameObject.Find ("TouchRecoverGauge").GetComponent<TouchRecoverGauge> ().StartUpdate();
 		Destroy (GameObject.Find ("OptionSceneCanvas").gameObject);
+		Time.timeScale = 1.0f;
 	}
 }
