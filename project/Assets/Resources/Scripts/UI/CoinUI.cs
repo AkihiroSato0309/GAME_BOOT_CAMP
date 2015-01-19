@@ -20,4 +20,8 @@ public class CoinUI : MonoBehaviour {
 	public void AddCoin () {
 		++coinNum;
 	}
+
+	public int GetCoinNum () {
+		return coinNum;
+	}
 }

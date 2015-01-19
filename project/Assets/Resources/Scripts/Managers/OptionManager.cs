@@ -16,7 +16,6 @@ public class OptionManager : MonoBehaviour {
 		GameObject.Find ("Timer").GetComponent<Timer> ().StopUpdate ();
 		GameObject.Find ("TouchRecoverGauge").GetComponent<TouchRecoverGauge> ().StopUpdate();
 		StartCoroutine ("CreateDisplayOption");
-		Debug.Log ("もみあげおおおおおお");
 	}
 
 	IEnumerator CreateDisplayOption () {

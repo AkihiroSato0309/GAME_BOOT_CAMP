@@ -96,7 +96,7 @@ public static class DataSaver {
 		}
 	}
 
-	public static void SaveData (float latestScore, int latestCoinNum) {
+	public static void SaveData (int latestScore, int latestCoinNum) {
 		// Save latest data
 		string filePath = Application.persistentDataPath + "/LatestData";
 		string[] scoreArray = new string[2];
@@ -119,7 +119,8 @@ public static class DataSaver {
 				userDataArray[0] = latestScore.ToString ();
 			}
 
-			userDataArray[1] += latestCoinNum;
+			int coinNum = int.Parse(userDataArray[1]) + latestCoinNum;
+			userDataArray[1] = coinNum.ToString ();
 
 			File.WriteAllLines (filePath, userDataArray, System.Text.Encoding.Unicode);
 		}
