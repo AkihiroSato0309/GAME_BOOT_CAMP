@@ -54,9 +54,11 @@ public class Ball : MonoBehaviour {
 	//--------------------------------------------------------
 	public void AddVelocity(Vector2 force)
 	{
-		Vector2 tmp;
+		/*Vector2 tmp;
 		tmp = this.rigidbody2D.velocity + force;
-		this.rigidbody2D.velocity = tmp;
+		this.rigidbody2D.velocity = tmp;*/
+        this.rigidbody2D.AddForce(force);
+
 	}
 
 
