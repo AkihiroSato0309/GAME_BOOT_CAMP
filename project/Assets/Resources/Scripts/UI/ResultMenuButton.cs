@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseButton : MonoBehaviour {
+public class ResultMenuButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

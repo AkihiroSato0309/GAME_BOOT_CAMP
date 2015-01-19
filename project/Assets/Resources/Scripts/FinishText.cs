@@ -24,6 +24,7 @@ public class FinishText : MonoBehaviour {
 
 	IEnumerator WaitFunction () {
 		yield return new WaitForSeconds (1);
+		Time.timeScale = 0;
 		GameObject.Find ("FinishManager").GetComponent<FinishManager> ().ShowResult ();
 	}
 }
