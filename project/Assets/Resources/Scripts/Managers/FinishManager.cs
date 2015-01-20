@@ -19,6 +19,11 @@ public class FinishManager : MonoBehaviour {
 	}
 
 	IEnumerator CreateDisplayResult () {
+		int meter = GameObject.Find ("Meter").GetComponent<Meter> ().GetMeter ();
+		int coin = GameObject.Find ("Coin").GetComponent<CoinUI> ().GetCoinNum ();
+		DataSaver.SaveData ( meter, coin );
+		GameObject.Find ("Timer").GetComponent<Timer> ().StopUpdate ();
+		GameObject.Find ("TouchRecoverGauge").GetComponent<TouchRecoverGauge> ().StopUpdate();
 		GameObject resultSceneCanvas = Instantiate (Resources.Load ("Prefabs/UI/ResultSceneCanvas")) as GameObject;
 		resultSceneCanvas.name = resultSceneCanvas.name.Replace ("(Clone)", "");
 		GameObject.Find ("MenuButton").GetComponent<Button> ().onClick.AddListener (GameObject.Find ("MenuButton").GetComponent<ResultMenuButton> ().ChangeToMenuScene);

@@ -31,9 +31,6 @@ public class Timer : MonoBehaviour {
 		if (second <= COUNT_MIN) {
 			Instantiate (Resources.Load ("Prefabs/UI/Finish"));
 			isActive = false;
-			int meter = GameObject.Find ("Meter").GetComponent<Meter> ().GetMeter ();
-			int coin = GameObject.Find ("Coin").GetComponent<CoinUI> ().GetCoinNum ();
-			DataSaver.SaveData ( meter, coin );
 			// Call event handlers
 			//OnOver();
 		}

@@ -72,6 +72,7 @@ public static class DataSaver {
 			string[] scoreArray = new string[2];
 			scoreArray[0] = "0";
 			scoreArray[1] = "0";
+			//stuff that isn't supported in the web player
 			File.WriteAllLines (filePath, scoreArray, System.Text.Encoding.Unicode);
 			return;
 		}

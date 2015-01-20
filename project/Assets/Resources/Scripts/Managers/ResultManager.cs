@@ -6,7 +6,7 @@ public class ResultManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		DataSaver.FirstDataCreate ();
+		//DataSaver.FirstDataCreate ();
 		string latestScore = DataSaver.GetLatestScore ();
 		string latestCoinNum = DataSaver.GetLatestCoinNum ();
 		GameObject.Find ("MeterResult").GetComponent<Text> ().text = "Meter:" + latestScore;
