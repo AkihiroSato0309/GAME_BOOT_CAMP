@@ -41,6 +41,7 @@ public class ShockWaver : MonoBehaviour {
 	void Update () 
 	{
 		if (m_touchActionGauge == null) return;
+		if (Time.timeScale == 0) return;
 
 		if (m_touchActionGauge.GetCurrentGaugeNum() <= 0) return;
 
